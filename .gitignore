@@ -1,0 +1,12 @@
+.gitignore
+
+*.log
+*.env
+.prettierrc
+eslint.config.js
+eslint.config.mjs
+
+node_modules
+package-lock.json
+release.md
+readme.md
