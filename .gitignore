@@ -8,5 +8,3 @@ eslint.config.mjs
 
 node_modules
 package-lock.json
-release.md
-readme.md
