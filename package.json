@@ -1,0 +1,29 @@
+{
+  "name": "spr-backend",
+  "version": "1.0.0",
+  "description": "SPR Catering Quote Web Application",
+  "homepage": "https://github.com/kaar-codes/catering-app-backend#readme",
+  "bugs": {
+    "url": "https://github.com/kaar-codes/catering-app-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaar-codes/catering-app-backend.git"
+  },
+  "license": "ISC",
+  "author": "Akshaya | Tharany | Kavi",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
