@@ -8,10 +8,13 @@ authRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const currentUser = await UserModel.findOne({ email });
-    await compare(password, currentUser.password);
-    res.status(201).json({ message: "User Logged in" });
+    if (await compare(password, currentUser.password)) {
+      res.status(201).json({ message: "User Logged in" });
+    } else {
+      throw new Error("Bad Authentication");
+    }
   } catch (error) {
-    res.status(401).json({ message: "Bad Authentication" });
+    res.status(401).json({ message: error.message });
   }
 });
 
