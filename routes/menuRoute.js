@@ -3,6 +3,7 @@ import Menu from "../models/menuModel.js";
 
 const menuRouter = Router();
 
+// Add Menu Item
 menuRouter.post("/menuitem", async (req, res) => {
   try {
     await Menu.create(req.body);
@@ -15,6 +16,7 @@ menuRouter.post("/menuitem", async (req, res) => {
   }
 });
 
+// Get Menu Items
 menuRouter.get("/menuitem", async (req, res) => {
   try {
     const data = await Menu.find();
@@ -24,6 +26,7 @@ menuRouter.get("/menuitem", async (req, res) => {
   }
 });
 
+// Add Menu Items
 menuRouter.post("/addMenuItems", async (req, res) => {
   try {
     await Menu.insertMany(req.body);

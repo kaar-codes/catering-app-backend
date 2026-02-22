@@ -21,7 +21,6 @@ const menuSchema = new Schema(
     menuname: {
       type: String,
       required: [true, "Menu name is mandatory"],
-      unique: [true, "Menu name already in the DB"],
     },
     description: {
       type: String,
@@ -41,6 +40,22 @@ const menuSchema = new Schema(
   },
   { versionKey: false },
 );
+
+menuSchema.pre("insertMany", async function (docs) {
+  for (const curDoc of Object.values(docs)) {
+    const menuItem = await this.find({ menuname: curDoc.menuname });
+    if (menuItem.length) {
+      const belongsToSameCategory = menuItem
+        .at(0)
+        .category.includes(...curDoc.category);
+      if (belongsToSameCategory) {
+        throw new Error(
+          `Item you are trying to add in the DB, already exist as ${menuItem.at(0).mid} under the same category.`,
+        );
+      }
+    }
+  }
+});
 
 const MenuModel = model("Menu", menuSchema);
 
