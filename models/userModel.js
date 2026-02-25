@@ -49,8 +49,8 @@ const userSchema = new Schema({
   },
   contact: {
     type: String,
-    max: [10, "Max 10 characters"],
-    min: [10, "Min 10 characters"],
+    maxlength: [10, "Max 10 characters"],
+    minLength: [10, "Min 10 characters"],
     required: [true, "Contact number is mandatory."],
     unique: [true, "Contact number already added"],
   },
