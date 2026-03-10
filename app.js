@@ -12,6 +12,7 @@ app.use(cors());
 
 // Parser for JSON
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/testRoute", async (req, res) => {
   res.status(202).json({ message: "Test Route" });

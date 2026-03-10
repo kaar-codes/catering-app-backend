@@ -2,7 +2,6 @@ import { config } from "dotenv";
 config({ path: [".env"] });
 import server from "./app.js";
 import { connect } from "mongoose";
-
 const PORT = 3000;
 
 /**
