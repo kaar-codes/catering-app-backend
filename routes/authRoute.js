@@ -1,20 +1,14 @@
 import { Router } from "express";
-import errorHandler from "../controllers/errorHandler.js";
+import {
+  changepassword,
+  forgotPassword,
+  loginUser,
+} from "../controllers/authController.js";
 
 const authRouter = Router();
 
-authRouter.post("/login", errorHandler.catchAsync(req,res) {
-
-});
-
-authRouter.post("/register", async (req, res) => {
-  try {
-  } catch (error) {}
-});
-
-authRouter.post("/forgotPassword", async (req, res) => {
-  try {
-  } catch (error) {}
-});
+authRouter.post("/login", loginUser);
+authRouter.post("/forgotPassword", forgotPassword);
+authRouter.post("/changepassword", changepassword);
 
 export default authRouter;
