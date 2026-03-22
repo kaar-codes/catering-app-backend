@@ -56,13 +56,13 @@ const quoteSchema = new Schema({
       "Customer email is Invalid",
     ],
   },
-  contact: {
+  phone: {
     type: String,
     validate: [
       async function isValidEmail(val) {
         const allUserContacts = await UserModel.find().select({
           _id: false,
-          contact: true,
+          phone: true,
         });
         const arrOfUserContact = allUserContacts.map((val) => val.contact);
         return arrOfUserContact.includes(val);

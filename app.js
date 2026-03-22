@@ -8,7 +8,12 @@ import { authenticateUser } from "./controllers/authController.js";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FE_URL, // 👈 exact frontend origin
+    credentials: true, // 👈 allow cookies/auth headers
+  }),
+);
 
 // Parser for JSON
 app.use(express.json());

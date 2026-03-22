@@ -56,10 +56,10 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function () {
-  this.password = await hash(this.password, 10);
+  this.password = hash(this.password, 10);
   this.confirmPassword = undefined;
 });
 
-const UserModel = model("USER", userSchema);
+const UserModel = model("Users", userSchema);
 
 export default UserModel;

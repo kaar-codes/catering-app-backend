@@ -6,6 +6,20 @@ import {
   verifySecret,
 } from "../controllers/mailController.js";
 
+export async function isAdminUser(req, res, next) {
+  try {
+    const { ...user } = await UserModel.findOne({ email: req.body.email });
+    if (user._doc.role === "ADMIN") {
+      console.log("User has admin priveledges");
+      next();
+    } else {
+      throw new Error("Non-Admin User");
+    }
+  } catch (error) {
+    res.status(403).json({ message: error.message });
+  }
+}
+
 export async function authenticateUser(req, res, next) {
   try {
     const token = req.headers.authorization.split(" ").at(-1);
