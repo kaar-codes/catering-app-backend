@@ -56,7 +56,7 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function () {
-  this.password = hash(this.password, 10);
+  this.password = await hash(this.password, 10);
   this.confirmPassword = undefined;
 });
 
