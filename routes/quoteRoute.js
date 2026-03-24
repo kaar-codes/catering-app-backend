@@ -31,6 +31,9 @@ quoteRouter.patch("/editQuote/:id", isAdminUser, async (req, res) => {
       req.body,
       { runValidators: true },
     );
+
+    // Throw Email to the Customer when any of the Status been changed
+
     if (!data) {
       res.status(404).json({ message: "Quote Not Found to be Active" });
     } else {

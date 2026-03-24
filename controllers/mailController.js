@@ -65,3 +65,28 @@ export async function verifySecret({ secret }) {
     return secret === (await redisClient.get("OTP"));
   }
 }
+
+export async function sendMailForUserWithUpdates(email, quoteChanges) {
+  if (quoteChanges.status == "") {
+  }
+
+  try {
+    // Setup a Transporter Email
+    const mail = await transporter.sendMail({
+      from: `TEST ACCOUNT <${process.env.ETHEREAL_USER}>`,
+      to: email,
+      subject: "Hello from Ethereal!",
+      text: "This message was sent using Ethereal.",
+      html: `
+          <p>QUOTE OF ID : ${quoteChanges._id}</p>
+          <h1>Quote has been modified</h1>
+          `,
+    });
+
+    return {
+      messageUrl: getTestMessageUrl(mail),
+    };
+  } catch (error) {
+    throw error;
+  }
+}
