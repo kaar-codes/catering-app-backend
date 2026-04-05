@@ -10,8 +10,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.FE_URL, // 👈 exact frontend origin
-    credentials: true, // 👈 allow cookies/auth headers
+    origin: process.env.FE_URL,
+    credentials: true,
   }),
 );
 
