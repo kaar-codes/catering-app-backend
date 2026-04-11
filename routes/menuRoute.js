@@ -11,6 +11,6 @@ import {
 const menuRouter = Router();
 
 menuRouter.post("/addMenuItems", authenticateUser, isAdminUser, addMenuItems);
-menuRouter.get("/allMenuItems", authenticateUser, getAllMenuItems);
+menuRouter.get("/all", authenticateUser, getAllMenuItems);
 
 export default menuRouter;
