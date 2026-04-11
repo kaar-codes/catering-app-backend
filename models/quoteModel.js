@@ -34,7 +34,7 @@ const quotesMenu = new Schema({
       async function (val) {
         console.log(val);
         const menu = await MenuModel.findOne({ menuname: val });
-        return menu.mid != undefined;
+        return menu._id != undefined;
       },
       "Menu Name not Found",
     ],

@@ -1,13 +1,13 @@
 import { Schema, model } from "mongoose";
 
 const menuSchema = new Schema({
-  mid: {
-    type: String,
-    required: [true, "Menu ID is a mandatory field"],
-    unique: [true, "Menu ID need to be unique"],
-    upperCase: [true],
-    trim: true,
-  },
+  // mid: {
+  //   type: String,
+  //   required: [true, "Menu ID is a mandatory field"],
+  //   unique: [true, "Menu ID need to be unique"],
+  //   upperCase: [true],
+  //   trim: true,
+  // },
   menuname: {
     type: String,
     required: [true, "Menu name is a mandatory field"],
@@ -33,6 +33,11 @@ const menuSchema = new Schema({
     ],
     required: [true, "Menu should contained atleast any one of the category"],
   },
+});
+
+menuSchema.pre("save", async function () {
+  const countDoc = (await this.constructor.countDocuments({})) + 1;
+  this._id = "MENU-SPR-" + countDoc;
 });
 
 const MenuModel = model("Menus", menuSchema);
