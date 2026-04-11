@@ -1,6 +1,16 @@
 import { Router } from "express";
-import Menu from "../models/menuModel.js";
+import {
+  getAllMenuItems,
+  addMenuItems,
+} from "../controllers/menuController.js";
+import {
+  authenticateUser,
+  isAdminUser,
+} from "../controllers/authController.js";
 
 const menuRouter = Router();
+
+menuRouter.post("/addMenuItems", authenticateUser, isAdminUser, addMenuItems);
+menuRouter.get("/allMenuItems", authenticateUser, getAllMenuItems);
 
 export default menuRouter;

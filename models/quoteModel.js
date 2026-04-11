@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import UserModel from "./userModel.js";
+import MenuModel from "./menuModel.js";
 
 const gapBasedEvent = new Map([
   ["birthday", 10],
@@ -12,11 +13,41 @@ const gapBasedEvent = new Map([
   ["other", 2],
 ]);
 
+const quotesMenu = new Schema({
+  menuType: {
+    type: String,
+    enum: [
+      "breakfast",
+      "lunch",
+      "dinner",
+      "snacks and sweets",
+      "stalls and extras",
+      "drinks and beverages",
+      "starters and sidedishes",
+    ],
+    required: [true, "Menu Type is mandatory"],
+  },
+  menuName: {
+    type: String,
+    required: [true, "Menu Items is mandatory"],
+    validate: [
+      async function (val) {
+        console.log(val);
+        const menu = await MenuModel.findOne({ menuname: val });
+        return menu.length > 0;
+      },
+      "Menu Name not Found",
+    ],
+  },
+});
+
 const quoteSchema = new Schema({
   _id: {
     type: String,
     alias: "quoId",
   },
+  eventTitle: String,
+  eventDescription: String,
   eventType: {
     type: String,
     enum: Array.from(gapBasedEvent.keys()),
@@ -59,13 +90,9 @@ const quoteSchema = new Schema({
   phone: {
     type: String,
     validate: [
-      async function isValidEmail(val) {
-        const allUserContacts = await UserModel.find().select({
-          _id: false,
-          phone: true,
-        });
-        const arrOfUserContact = allUserContacts.map((val) => val.contact);
-        return arrOfUserContact.includes(val);
+      async function (value) {
+        const user = await UserModel.findOne({ phone: value });
+        return user != null; // Returns true if user exists
       },
       "Customer Contact is Invalid",
     ],
@@ -74,6 +101,16 @@ const quoteSchema = new Schema({
     type: String,
     enum: ["In Enquiry", "Waiting List", "Cancel", "Confirm"],
     default: "In Enquiry",
+  },
+  menu: {
+    type: [quotesMenu],
+    required: [true, "Menu Items are required"],
+    validate: [
+      async function (val) {
+        return val.length >= 1;
+      },
+      "Minimum 1 Item is needed",
+    ],
   },
 });
 
