@@ -14,7 +14,7 @@ const gapBasedEvent = new Map([
 ]);
 
 const quotesMenu = new Schema({
-  menuType: {
+  category: {
     type: String,
     enum: [
       "breakfast",
@@ -27,7 +27,10 @@ const quotesMenu = new Schema({
     ],
     required: [true, "Menu Type is mandatory"],
   },
-  menuName: {
+  description: {
+    type: String,
+  },
+  menuname: {
     type: String,
     required: [true, "Menu Items is mandatory"],
     validate: [

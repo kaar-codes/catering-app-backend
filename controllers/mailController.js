@@ -40,7 +40,7 @@ export async function sendMailWithOTP(email) {
     const mail = await transporter.sendMail({
       from: `TEST ACCOUNT <${process.env.ETHEREAL_USER}>`,
       to: email,
-      subject: "Hello from Ethereal!",
+      subject: "CATERING QUOTE MANAGEMENT SYSTEM",
       text: "This message was sent using Ethereal.",
       html: `
           <p>HERE IS YOUR OTP FOR PASSWORD CHANGE.</p>

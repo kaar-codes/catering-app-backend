@@ -1,5 +1,6 @@
 import QuoteModel from "../models/quoteModel.js";
 import { sendMailForUserWithUpdates } from "./mailController.js";
+import jwt from "jsonwebtoken";
 
 /**
  * Create an Quote
@@ -59,7 +60,22 @@ export async function updateQuote(req, res) {
 export async function getAllQuotes(req, res) {
   try {
     const data = await QuoteModel.find();
-    res.json({ message: "Quotes", data });
+    res.json({ message: "Quotes", quotes: data });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
+/**
+ * Fetch User Specific Quotes for the Application
+ * @param {*} req
+ * @param {*} res
+ */
+export async function userSpecificQuotes(req, res) {
+  try {
+    const { email } = jwt.decode(req.headers.authorization.split(" ").at(-1));
+    const data = await QuoteModel.find({ email }, {});
+    res.status(200).json({ status: true, quotes: data });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
